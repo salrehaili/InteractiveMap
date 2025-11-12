@@ -226,7 +226,9 @@
     draw:{ polygon:{allowIntersection:false, showArea:true, metric:false}, rectangle:true, polyline:true, marker:true, circle:false, circlemarker:false },
     edit:{ featureGroup: drawnItems }
   });
-  map.addControl(drawControl);
+  // comment out to disable the default draw control
+  // map.addControl(drawControl);
+  
   map.on(L.Draw.Event.CREATED, function(e){
     const layer=e.layer;
     const type=document.getElementById('typeSelect').value||'classroom';
@@ -350,3 +352,4 @@
 
   loadFloor(0);
 })();
+
