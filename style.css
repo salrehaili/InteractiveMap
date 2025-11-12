@@ -1,0 +1,35 @@
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Cairo',Arial,sans-serif}
+header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 14px;background:#0f766e;color:#fff}
+header .title{font-weight:600}
+header .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+header input[type="search"], header select{padding:6px 8px;border-radius:6px;border:1px solid #0b5d57}
+header button.primary,.import-label{padding:6px 10px;border-radius:6px;border:1px solid #0b5d57;background:#0b8a80;color:#fff;cursor:pointer}
+header button.outline{padding:6px 10px;border-radius:6px;border:1px solid #fff;background:transparent;color:#fff;cursor:pointer}
+header button.danger{padding:6px 10px;border-radius:6px;border:1px solid #dc2626;background:#ef4444;color:#fff;cursor:pointer}
+#importedNotice{font-size:12px}
+#fileImport{display:none}
+main{display:grid;grid-template-columns:1fr 380px;gap:8px;height:calc(100% - 56px);padding:8px}
+#map{width:100%;height:100%;border:1px solid #ddd;border-radius:8px;background:#0b1f2b}
+#map.delete-mode{outline:3px dashed #ef4444; outline-offset:-3px}
+#panel{border:1px solid #ddd;border-radius:8px;padding:12px;overflow:auto}
+#panel h2{margin-top:0;font-size:18px}
+.stack{display:flex;flex-direction:column;gap:6px}
+.full{width:100%}
+.legend{display:grid;gap:6px;font-size:14px}
+.sw{display:inline-block;width:14px;height:14px;margin-left:6px;border-radius:3px;vertical-align:middle;border:1px solid #999}
+.sw.classroom{background:#3b82f655;border-color:#3b82f6}
+.sw.lab{background:#8b5cf655;border-color:#8b5cf6}
+.sw.lobby{background:#14b8a655;border-color:#14b8a6}
+.sw.service{background:#f59e0b55;border-color:#f59e0b}
+.sw.restroom{background:#22c55e55;border-color:#22c55e}
+.sw.coffee_shop{background:#b4530955;border-color:#b45309}
+.sw.admin_office{background:#64748b55;border-color:#64748b}
+.sw.activity_hall{background:#ec489955;border-color:#ec4899}
+.sw.meeting_room{background:#06b6d455;border-color:#06b6d4}
+.sw.marker{background:#a3a3a355;border-color:#a3a3a3}
+.leaflet-popup-content{direction:rtl}
+.room-label{background:rgba(255,255,255,.75);color:#111;border:1px solid #ddd;border-radius:4px;padding:2px 6px;font-weight:600}
+.filters{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:6px}
+.filter-item{display:flex;align-items:center;gap:6px;font-size:13px}
+@media(max-width:900px){main{grid-template-columns:1fr;grid-template-rows:1fr auto;height:auto}#map{height:60vh}}

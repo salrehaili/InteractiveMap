@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>خريطة مبنى – كليات متعددة + تصدير PDF/GeoJSON (v2 — طابقان)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="title">خريطة مبنى تفاعلية – كليات ومرافق (v2)</div>
+    <div class="controls">
+      <label>الطابق:</label>
+      <select id="floorSelect"></select>
+
+      <label for="typeSelect">النوع:</label>
+      <select id="typeSelect">
+        <option value="classroom">قاعة دراسية</option>
+        <option value="lab">معمل</option>
+        <option value="lobby">بهو</option>
+        <option value="elevator">مصعد</option>
+        <option value="entrance">مدخل</option>
+        <option value="exit">مخرج</option>
+        <option value="stair_up">درج صعود</option>
+        <option value="stair_down">درج نزول</option>
+        <option value="service">غرفة خدمات</option>
+        <option value="restroom">دورات مياه</option>
+        <option value="coffee_shop">كوفي شوب</option>
+        <option value="admin_office">مكتب إداري</option>
+        <option value="activity_hall">قاعة أنشطة</option>
+        <option value="meeting_room">قاعة اجتماعات</option>
+      </select>
+
+      <label for="collegeSelect">الكلية:</label>
+      <select id="collegeSelect">
+        <option value="كلية علوم وهندسة الحاسبات">كلية علوم وهندسة الحاسبات</option>
+        <option value="كلية الهندسة">كلية الهندسة</option>
+        <option value="الكلية التطبيقية">الكلية التطبيقية</option>
+      </select>
+
+      <input id="searchBox" type="search" placeholder="ابحث بالاسم/الرقم/القسم/الكلية…" />
+      <button id="btnExportTop" class="primary" title="تصدير GeoJSON" disabled>⤓ GeoJSON</button>
+      <label class="import-label" for="fileImport" title="استيراد GeoJSON">⤒ استيراد</label>
+      <input id="fileImport" type="file" accept="application/json,.geojson" disabled />
+      <button id="btnExportPDF" class="outline" title="تصدير PDF">🖨️ PDF</button>
+      <button id="btnDeleteMode" class="danger" title="وضع حذف العناصر">🗑️ حذف</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="map"></div>
+    <aside id="panel">
+      <h2>العناصر</h2>
+      <div class="stack">
+        <button id="btnExportSide" class="primary full" disabled>⤓ تصدير GeoJSON</button>
+        <button id="btnExportPDF_side" class="outline full" >🖨️ تصدير PDF</button>
+        <button id="btnDeleteModeSide" class="danger full" disabled>🗑️ وضع حذف العناصر</button>
+      </div>
+      <hr/>
+
+      <h3>فلتر الكليات</h3>
+      <div id="collegeFilters" class="filters"></div>
+      <small class="hint">ألغِ تحديد كلية لإخفاء جميع مرافقها. عند تفعيل <b>وضع الحذف</b> انقر على أي عنصر لإزالته.</small>
+      <hr/>
+
+      <h3>نتائج البحث</h3>
+      <div id="results"></div>
+      <hr/>
+
+      <h3>دليل الأنواع</h3>
+      <div class="legend">
+        <div><span class="sw classroom"></span> قاعة دراسية</div>
+        <div><span class="sw lab"></span> معمل</div>
+        <div><span class="sw lobby"></span> بهو</div>
+        <div><span class="sw service"></span> غرفة خدمات</div>
+        <div><span class="sw restroom"></span> دورات مياه</div>
+        <div><span class="sw coffee_shop"></span> كوفي شوب</div>
+        <div><span class="sw admin_office"></span> مكتب إداري</div>
+        <div><span class="sw activity_hall"></span> قاعة أنشطة</div>
+        <div><span class="sw meeting_room"></span> قاعة اجتماعات</div>
+        <div><span class="sw marker"></span> مصعد / مدخل / مخرج / درج صعود / درج نزول</div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // تعريف الطوابق: طابقان فقط
+    window.__FLOOR_IMAGES__ = [
+      { name: 'طابق 1', file: 'floor_1.png' },
+      { name: 'طابق 2', file: 'floor_2.png' }
+    ];
+    // تعريف الكليات الثابتة
+    window.__COLLEGES__ = [
+      'كلية علوم وهندسة الحاسبات',
+      'كلية الهندسة',
+      'الكلية التطبيقية'
+    ];
+  </script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
