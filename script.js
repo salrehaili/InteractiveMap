@@ -1,4 +1,4 @@
-// إضافة درج نزول + زر وضع حذف العناصر + تحميل تلقائي بدون خادم (localStorage → Embedded <script> → fetch)
+// (localStorage → Embedded <script> → fetch)
 (function(){
   const map = L.map('map', { crs: L.CRS.Simple, minZoom: -2, maxZoom: 4 });
   map.doubleClickZoom.disable();
@@ -11,7 +11,7 @@
 
   const COLLEGES = window.__COLLEGES__ || ['كلية علوم وهندسة الحاسبات','كلية الهندسة','الكلية التطبيقية'];
 
-  // جميع الأنواع
+  // All groups by type
   const typeGroups = {};
   const ALL_TYPES = [
     'classroom','lab','lobby','elevator','entrance','exit','stair_up','stair_down','service','restroom',
@@ -20,7 +20,7 @@
   ALL_TYPES.forEach(t => typeGroups[t] = new L.FeatureGroup());
   const masterGroup = new L.FeatureGroup(Object.values(typeGroups)); map.addLayer(masterGroup);
 
-  // فلتر الكليات
+
   const collegeFiltersEl = document.getElementById('collegeFilters');
   const activeColleges = new Set(COLLEGES);
   COLLEGES.forEach(col => {
@@ -34,18 +34,15 @@
     });
   });
 
-  // اختيار الطابق (طابقان)
   const floorSelect = document.getElementById('floorSelect');
   (window.__FLOOR_IMAGES__||[]).forEach((f,i)=>{
     const opt=document.createElement('option'); opt.value=i; opt.textContent=f.name; floorSelect.appendChild(opt);
   });
   floorSelect.addEventListener('change', ()=> loadFloor(parseInt(floorSelect.value,10)));
 
-  // مفاتيح التخزين
   function lsKey(){ return `floorplan_colleges_v2_floor_${currentFloor}`; }
   function lsKeyFor(idx){ return `floorplan_colleges_v2_floor_${idx}`; }
 
-  // ======= دوال المساعدة =======
   function ingestGeoJSON(data){
     L.geoJSON(data, {
       style: featureStyle,
@@ -54,7 +51,6 @@
     }).eachLayer(l => addToGroup(l));
   }
 
-  // قراءة GeoJSON مضمن داخل index.html
   function getEmbeddedGeoJSON(floorIndex){
     const el = document.getElementById(`floor_${floorIndex+1}_geojson`);
     if (!el) return null;
@@ -81,23 +77,21 @@
       imageOverlay = L.imageOverlay(f.file, bounds).addTo(map);
       map.fitBounds(bounds);
 
-      // امسح عناصر الطابق السابق
       Object.values(typeGroups).forEach(g => g.clearLayers());
 
-      // 1) من localStorage أولاً
       const saved = localStorage.getItem(lsKey());
       if (saved){
         try{ ingestGeoJSON(JSON.parse(saved)); }
         catch(e){ console.warn('Load error (localStorage)', e); }
       } else {
-        // 2) من سكربت مضمن داخل index.html
+
         const embedded = getEmbeddedGeoJSON(index);
         if (embedded){
           ingestGeoJSON(embedded);
-          // خزّن نسخة للمستقبل
+
           localStorage.setItem(lsKey(), JSON.stringify(embedded));
         } else {
-          // 3) محاولة fetch (ستنجح فقط عند العمل عبر خادم)
+
           const fetched = await tryFetch(`./floor_${index+1}.geojson`) || await tryFetch(`./floor_${index+1}.geosson`);
           if (fetched){
             ingestGeoJSON(fetched);
@@ -183,7 +177,6 @@
     layer.addTo(map);
   }
 
-  // حذف
   function setDeleteMode(on){
     deleteMode = !!on;
     const mapEl=document.getElementById('map');
@@ -197,7 +190,6 @@
     saveAll(); refreshList();
   }
 
-  // محرر الخصائص
   function editProps(layer){
     const cur=layer.properties||{};
     const name=prompt('الاسم:',cur.name||'')||'';
@@ -219,7 +211,6 @@
     saveAll(); applyCollegeFilter(); refreshList();
   }
 
-  // رسم
   const drawnItems = new L.FeatureGroup(); map.addLayer(drawnItems);
   const drawControl = new L.Control.Draw({
     position:'topright',
@@ -242,7 +233,6 @@
     editProps(layer);
   });
 
-  // بحث/قائمة
   const searchBox=document.getElementById('searchBox');
   const resultsEl=document.getElementById('results');
   searchBox.addEventListener('input', refreshList);
@@ -284,7 +274,6 @@
     });
   }
 
-  // حفظ/تحميل/تصدير/استيراد
   function serialize(){
     const feats=[];
     iterLayers(l=>{
@@ -345,7 +334,6 @@
   document.getElementById('btnExportPDF').addEventListener('click', doExportPDF);
   document.getElementById('btnExportPDF_side').addEventListener('click', doExportPDF);
 
-  // زر وضع الحذف
   document.getElementById('btnDeleteMode').addEventListener('click', toggleDeleteMode);
   document.getElementById('btnDeleteModeSide').addEventListener('click', toggleDeleteMode);
   document.addEventListener('keydown', (ev)=>{ if(ev.key==='Escape') setDeleteMode(false); });
