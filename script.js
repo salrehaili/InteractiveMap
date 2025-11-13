@@ -158,18 +158,71 @@
     if(p.college)Ls.push(`الكلية: ${p.college}`);
     if(p.type)Ls.push(`<small>النوع: ${p.type}</small>`);
     if(p.notes)Ls.push(`<small>${p.notes}</small>`);
+    
+    if (p.office_hours){
+    const url = p.office_hours;
+    Ls.push(
+      `<details style="margin-top:6px; max-height:200px; overflow:auto;">
+        <summary style="cursor:pointer; color:#0ea5e9; font-weight:bold;">
+          🕒 عرض الساعات المكتبية
+        </summary>
+        <div style="margin-top:4px;">
+          ${p.office_hours}
+        </div>
+      </details>`
+    );
+  }
+
     return Ls.join('<br/>')||'عنصر';
   }
 
+  // function attachHandlers(feat, layer){
+  //   layer.properties=feat.properties||{};
+  //   layer.bindPopup(popupHTML(layer.properties));
+  //   if(layer.properties.name && layer.bindTooltip){
+  //     layer.bindTooltip(layer.properties.name,{permanent:true,direction:'center',className:'room-label'});
+  //   }
+  //   layer.on('dblclick', ()=> editProps(layer));
+  //   layer.on('click', onLayerClickForDelete);
+  // }
+
   function attachHandlers(feat, layer){
-    layer.properties=feat.properties||{};
-    layer.bindPopup(popupHTML(layer.properties));
-    if(layer.properties.name && layer.bindTooltip){
-      layer.bindTooltip(layer.properties.name,{permanent:true,direction:'center',className:'room-label'});
-    }
-    layer.on('dblclick', ()=> editProps(layer));
-    layer.on('click', onLayerClickForDelete);
+  layer.properties = feat.properties || {};
+
+  layer.bindPopup(popupHTML(layer.properties));
+
+  if(layer.properties.name && layer.bindTooltip){
+    layer.bindTooltip(layer.properties.name,{
+      permanent:true,
+      direction:'center',
+      className:'room-label'
+    });
   }
+
+  // layer.on('dblclick', ()=> editProps(layer));
+  layer.on('click',   onLayerClickForDelete);
+
+  // // ⭐ عند فتح الـ popup نربط زر "عرض التفاصيل"
+  // layer.on('popupopen', () => {
+  //   const popup = layer.getPopup();
+  //   const popupEl = popup.getElement();
+  //   if (!popupEl) return;
+
+  //   const toggle = popupEl.querySelector('.popup-toggle-details');
+  //   const detailsEl = popupEl.querySelector('.popup-details');
+
+  //   if (toggle && detailsEl) {
+  //     toggle.addEventListener('click', (e) => {
+  //       e.preventDefault();
+  //       const isHidden = detailsEl.style.display === 'none' || !detailsEl.style.display;
+  //       detailsEl.style.display = isHidden ? 'block' : 'none';
+  //       toggle.textContent = isHidden ? '📄 إخفاء التفاصيل' : '📄 عرض التفاصيل';
+  //       popup.update();
+  //     });
+  //   }
+  // });
+}
+
 
   function addToGroup(layer){
     const t=(layer.properties&&layer.properties.type)||'other';
@@ -228,9 +281,9 @@
     if(e.layerType==='marker') layer.setIcon(iconFor(type));
     else if(layer.setStyle) layer.setStyle(featureStyle({properties:layer.properties,geometry:layer.toGeoJSON().geometry}));
     addToGroup(layer);
-    layer.on('dblclick', ()=> editProps(layer));
+    // layer.on('dblclick', ()=> editProps(layer));
     layer.on('click', onLayerClickForDelete);
-    editProps(layer);
+    // editProps(layer);
   });
 
   const searchBox=document.getElementById('searchBox');

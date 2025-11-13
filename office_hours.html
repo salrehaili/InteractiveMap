@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2 id="name">Here is the professor name</h2>
+
+<p id="demo"></p>
+
+    <script src="data.js"></script>
+    <script>
+        const obj = JSON.parse(JSON.stringify(hours));
+        
+        document.getElementById("name").innerHTML = "Dr. "+
+        obj.employees[0].firstName + " " + obj.employees[0].lastName ;
+
+        document.getElementById("demo").innerHTML ="Office Hours: " + obj.employees[0].officeHours.join(', ');
+    </script>
+
+</body>
+</html>
