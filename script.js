@@ -51,11 +51,19 @@
     }).eachLayer(l => addToGroup(l));
   }
 
+  // function getEmbeddedGeoJSON(floorIndex){
+  //   const el = document.getElementById(`floor_${floorIndex+1}_geojson`);
+  //   if (!el) return null;
+  //   try { return JSON.parse(el.textContent); } catch { return null; }
+  // }
+
   function getEmbeddedGeoJSON(floorIndex){
-    const el = document.getElementById(`floor_${floorIndex+1}_geojson`);
-    if (!el) return null;
-    try { return JSON.parse(el.textContent); } catch { return null; }
+  if (window.__FLOOR_GEOJSON__ && window.__FLOOR_GEOJSON__[floorIndex]) {
+    return window.__FLOOR_GEOJSON__[floorIndex];
   }
+  return null;
+}
+
 
   async function tryFetch(path){
     try{
