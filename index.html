@@ -3,15 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>خريطة مبنى – كليات متعددة + تصدير PDF/GeoJSON (v2 — طابقان)</title>
+  <title>خريطة مبنى B03</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script> -->
   
-  <!-- <script src="./floor_1.geojson" type="text/javascript"></script>
-    <script src="./floor_2.geojson" type="text/javascript"></script> -->
+
 </head>
 <body>
   <header>
@@ -92,40 +90,31 @@
     </aside>
   </main>
 
-  <script>
-    // تعريف الطوابق: طابقان فقط
-    window.__FLOOR_IMAGES__ = [
-      { name: 'طابق 1', file: 'floor_1.png' },
-      { name: 'طابق 2', file: 'floor_2.png' }
-    ];
-    // تعريف الكليات الثابتة
-    window.__COLLEGES__ = [
-      'كلية علوم وهندسة الحاسبات',
-      'كلية الهندسة',
-      'الكلية التطبيقية'
-    ];
+<!-- load data -->
+  <script src="data.js"></script>
 
 
-    
-  </script>
-
+<!-- clears localstorage when this page loads -->
   <script>
   localStorage.clear();
-</script>
+  </script>
 
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-
-<script src="floor_1.js"></script>
-<script src="floor_2.js"></script>
-<script src="script.js"></script>
-
-
-
   
+
+  <script src="office_hours.js"></script>
+
+
+  <!-- Load and execute the JavaScript code inside the following files -->
+  <script src="floor_1.js"></script>
+  <script src="floor_2.js"></script>
+  <script src="main.js"></script>
+
+  <script src="script.js"></script>
 
 </body>
 </html>

@@ -801,7 +801,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
         "notes": "",
-        "office_hours": "<b> د. مالك</b><br>الأحد 10–12<br>الاثنين 9–11<br> </b>الثلاثاء 1–3"
+        "office_hours": ""
 
       },
       "geometry": {

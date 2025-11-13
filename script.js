@@ -9,7 +9,7 @@
 
   let deleteMode = false;
 
-  const COLLEGES = window.__COLLEGES__ || ['كلية علوم وهندسة الحاسبات','كلية الهندسة','الكلية التطبيقية'];
+  const COLLEGES = window.__COLLEGES__ ;
 
   // All groups by type
   const typeGroups = {};
@@ -298,12 +298,34 @@
   const resultsEl=document.getElementById('results');
   searchBox.addEventListener('input', refreshList);
   function iterLayers(cb){ Object.values(typeGroups).forEach(g=> g.eachLayer(cb)); }
+  
+  
+  function normalizeArabic(str) {
+  return str
+    .normalize("NFKD")                     //  Unicode
+    .replace(/[\u064B-\u065F]/g, '')       // remove (ٙ ٚ  ٜ  َ  ُ  ِ  ّ  ْ  …)
+    .replace(/[أإآٱ]/g, 'ا')               // unify hamza ا
+    .replace(/ء/g, '')                     
+    .replace(/ؤ/g, 'و')                    // مؤ → مو
+    .replace(/ئ/g, 'ي')                    // ئ → ي
+    .replace(/ة/g, 'ه')                    // ة → ه 
+    .replace(/ى/g, 'ي')                    // ى → ي
+    .replace(/ـ/g, '')                     // Remover tatweel
+    .trim();
+}
+
+
   function refreshList(){
     const q=(searchBox.value||'').trim().toLowerCase();
     const items=[];
     iterLayers(l=>{
       const p=l.properties||{};
-      const hay=`${p.name||''} ${p.number||''} ${p.dept||''} ${p.college||''} ${p.type||''}`.toLowerCase();
+      const cleanOffice = (p.office_hours || '').replace(/<[^>]+>/g, ' ');
+
+      let hay=`${p.name||''} ${p.number||''} ${p.dept||''} ${p.college||''} ${cleanOffice||''} ${p.type||''}`.toLowerCase();
+      // Normalisation
+      hay = normalizeArabic(hay);
+
       const visible=map.hasLayer(l);
       if(visible && (!q || hay.includes(q))) items.push({layer:l, props:p});
     });
