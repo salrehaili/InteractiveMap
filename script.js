@@ -316,7 +316,10 @@
 
 
   function refreshList(){
-    const q=(searchBox.value||'').trim().toLowerCase();
+    let q=(searchBox.value||'').trim().toLowerCase();
+    q = normalizeArabic(q);
+
+
     const items=[];
     iterLayers(l=>{
       const p=l.properties||{};
