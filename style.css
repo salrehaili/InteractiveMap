@@ -38,3 +38,71 @@ main{display:grid;grid-template-columns:1fr 380px;gap:8px;height:calc(100% - 56p
 .leaflet-control-attribution {
     display: none;
   }
+
+
+
+
+
+  /* Keep RTL layout, but don't affect every child with * */
+.leaflet-popup-content {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: plaintext !important;
+}
+
+/* Slightly wider popup on desktop */
+.leaflet-popup-content-wrapper {
+  max-width: 420px; /* you can adjust */
+  width: auto;
+}
+
+/* Special styles for lab popups */
+.popup-lab .lab-table-wrapper {
+  max-width: 100%;
+  overflow-x: auto;        /* horizontal scroll if needed */
+}
+
+.popup-lab table.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+/* Common cells */
+.popup-lab table.lab-table th,
+.popup-lab table.lab-table td {
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+}
+
+/* Header row */
+.popup-lab table.lab-table thead th {
+  background: #e5e7eb;
+}
+
+/* Time column */
+.popup-lab table.lab-table td.time-col {
+  white-space: nowrap;
+  background: #f9fafb;
+  text-align: right;
+}
+
+/* Day cells */
+.popup-lab table.lab-table td.slot-col {
+  text-align: center;
+  vertical-align: top;
+}
+
+
+
+
+/* Popup for LAB rooms only */
+.leaflet-popup.popup-lab .leaflet-popup-content-wrapper {
+  width: 420px !important;   /* اجعلها أعرض */
+  max-width: 420px !important;
+}
+
+.leaflet-popup.popup-lab .leaflet-popup-content {
+  width: 400px !important;   /* المحتوى الداخلي */
+}
