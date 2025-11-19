@@ -800,6 +800,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgABXYiamnCKTIHYCwX69t7BATY2JLqwbXpSghFlyrvNzvI?e=OLSc4D",
         "notes": "",
         "office_hours": ""
 
@@ -840,6 +841,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgBth_UcnwTERJ5lDYZE_IQKAd-eAJbvEM30BFvHkC15GGI?e=3nxPgi",
         "notes": ""
       },
       "geometry": {
@@ -878,6 +880,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgC2uR3FnypjQLTODGRQ7M8LAQUsHiylxl1WvyngQu8ktjs?e=VTg3uG",
         "notes": "",
         "office_hours": "<b>د. أحمد </b><br>الأحد 10–12<br><br><b>د. وليد </b><br>الاثنين 9–11<br><br><b>د. عبدالله </b><br>الثلاثاء 1–3"
 
@@ -918,6 +921,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgCM0GklMiZcQIbSrfFY5wOLAYwaxOg_tt4JaV1v5huCR5I?e=O3b7WG",
         "notes": ""
       },
       "geometry": {
@@ -956,6 +960,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+        "url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgDWz9wkR0L8Q4Hi7hFL2xmjAQTGCzF0l9kbDvuIhYx6bXw?e=K1zto6",
         "notes": ""
       },
       "geometry": {
@@ -994,6 +999,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+ "url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgCbi3fD6HutQqzB_HP7H2E3AewoiMDdejYmgHrL5WNS5U0?e=cTXSkR",
         "notes": ""
       },
       "geometry": {
@@ -1032,6 +1038,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+ "url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgCzkByGk0qyTLrHYsCvC9HLAYWuwg6eGhG-yhRPm4F6aXc?e=BSUzMt",
         "notes": ""
       },
       "geometry": {
@@ -1070,6 +1077,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgAglaZ-MlqtR74NVmN-LY0wAc2IoRcOUy5tclhqW8yV1KA?e=BGn6zc",
         "notes": ""
       },
       "geometry": {
@@ -1108,6 +1116,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgD54IAz8Jy3Tam_L-9CbowHAZYM40Zk2Z4pj7boAG8_u88?e=GIsXnl",
         "notes": ""
       },
       "geometry": {
@@ -1146,6 +1155,7 @@ window.__FLOOR_GEOJSON__[1] = {
         "dept": "كلية علوم وهندسة الحاسبات",
         "college": "كلية علوم وهندسة الحاسبات",
         "type": "admin_office",
+"url": "https://taibahuniv-my.sharepoint.com/:f:/g/personal/aalazzami_taibahu_edu_sa/IgC6kJ6ISlYvTJEpss4lcy7dAfEXTP6fJSs4YrhEffFJ7rU?e=yigAyQ",
         "notes": ""
       },
       "geometry": {

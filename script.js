@@ -194,135 +194,142 @@
   if (p.dept)    Ls.push(`القسم: ${p.dept}`);
   if (p.college) Ls.push(`الكلية: ${p.college}`);
   if (p.type)    Ls.push(`<small>النوع: ${p.type}</small>`);
+  if (p.url)    Ls.push(`
+  <details style="margin-top:6px; max-height:200px; overflow:auto;">
+    <summary style="cursor:pointer; color:#0ea5e9; font-weight:bold;"><a href="${p.url}" target="_blank">
+       🕒 عرض الساعات المكتبية
+    </a> </summary>
+  </details>
+    `);
   if (p.notes)   Ls.push(`<small>${p.notes}</small>`);
 
-  // ========== جدول أسبوعي (مكاتب + معامل) من window.OFFICE_HOURS ==========
-  const allOfficeHours = window.OFFICE_HOURS || {};
-  const roomNo = p.number;                      // مثل FF-13 أو GF-30
-  const roomData = roomNo ? allOfficeHours[roomNo] : null;
+  // // ========== جدول أسبوعي (مكاتب + معامل) من window.OFFICE_HOURS ==========
+  // const allOfficeHours = window.OFFICE_HOURS || {};
+  // const roomNo = p.number;                      // مثل FF-13 أو GF-30
+  // const roomData = roomNo ? allOfficeHours[roomNo] : null;
 
-  // نطبّق الجدول فقط على: المكاتب الإدارية + المعامل
-  const isOffice = p.type === 'admin_office';
-  const isLab    = p.type === 'lab';
+  // // نطبّق الجدول فقط على: المكاتب الإدارية + المعامل
+  // const isOffice = p.type === 'admin_office';
+  // const isLab    = p.type === 'lab';
 
-  if (p.office_hours && p.type === 'admin_office'){
-    const url = p.office_hours;
-    Ls.push(
-      `<details style="margin-top:6px; max-height:200px; overflow:auto;">
-        <summary style="cursor:pointer; color:#0ea5e9; font-weight:bold;">
-          🕒 عرض الساعات المكتبية
-        </summary>
-        <div style="margin-top:4px;">
-          ${p.office_hours}
-        </div>
-      </details>`
-    );
-  }
-  else if (p.office_hours && p.type === 'lab') {
+  // if (p.office_hours && p.type === 'admin_office'){
+  //   const url = p.office_hours;
+  //   Ls.push(
+  //     `<details style="margin-top:6px; max-height:200px; overflow:auto;">
+  //       <summary style="cursor:pointer; color:#0ea5e9; font-weight:bold;">
+  //         🕒 عرض الساعات المكتبية
+  //       </summary>
+  //       <div style="margin-top:4px;">
+  //         ${p.office_hours}
+  //       </div>
+  //     </details>`
+  //   );
+  // }
+  // else if (p.office_hours && p.type === 'lab') {
 
-    const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس'];
+  //   const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس'];
 
-    // 1) تجميع كل "الأوقات" المميزة من جميع الدكاترة
-    const timeSet = new Set();
-    roomData.forEach(teacher => {
-      (teacher.slots || []).forEach(s => {
-        if (s.time) timeSet.add(s.time);
-      });
-    });
-    let times = Array.from(timeSet);
+  //   // 1) تجميع كل "الأوقات" المميزة من جميع الدكاترة
+  //   const timeSet = new Set();
+  //   roomData.forEach(teacher => {
+  //     (teacher.slots || []).forEach(s => {
+  //       if (s.time) timeSet.add(s.time);
+  //     });
+  //   });
+  //   let times = Array.from(timeSet);
 
-    // (اختياري) محاولة ترتيب الأوقات حسب أول رقم في الفترة
-    times.sort((a, b) => {
-      const pa = parseInt(a, 10);
-      const pb = parseInt(b, 10);
-      if (isNaN(pa) || isNaN(pb)) return a.localeCompare(b, 'ar');
-      return pa - pb;
-    });
+  //   // (اختياري) محاولة ترتيب الأوقات حسب أول رقم في الفترة
+  //   times.sort((a, b) => {
+  //     const pa = parseInt(a, 10);
+  //     const pb = parseInt(b, 10);
+  //     if (isNaN(pa) || isNaN(pb)) return a.localeCompare(b, 'ar');
+  //     return pa - pb;
+  //   });
 
-    // 2) خريطة: cell[time][day] = [اسم1, اسم2, ...]
-    const cell = {};
-    times.forEach(t => {
-      cell[t] = {};
-      DAYS.forEach(d => { cell[t][d] = []; });
-    });
+  //   // 2) خريطة: cell[time][day] = [اسم1, اسم2, ...]
+  //   const cell = {};
+  //   times.forEach(t => {
+  //     cell[t] = {};
+  //     DAYS.forEach(d => { cell[t][d] = []; });
+  //   });
 
-    roomData.forEach(teacher => {
-      (teacher.slots || []).forEach(s => {
-        const d = s.day;
-        const t = s.time;
-        if (cell[t] && cell[t][d] !== undefined) {
-          cell[t][d].push(teacher.name);
-        }
-      });
-    });
+  //   roomData.forEach(teacher => {
+  //     (teacher.slots || []).forEach(s => {
+  //       const d = s.day;
+  //       const t = s.time;
+  //       if (cell[t] && cell[t][d] !== undefined) {
+  //         cell[t][d].push(teacher.name);
+  //       }
+  //     });
+  //   });
 
-    //  rows of the table
-    let rowsHtml = '';
-    times.forEach(timeLabel => {
-      let cellsHtml = '';
-      DAYS.forEach(day => {
-        const names = cell[timeLabel][day] || [];
-        // const content = names.length
-        //   ? '● ' + names.join('<br>● ')
-        //   : '';
-        cellsHtml += `
-          <td style="padding:4px 6px; border:1px solid #ddd; text-align:center; vertical-align:top;">
-            ${names}
-          </td>
-        `;
-      });
+  //   //  rows of the table
+  //   let rowsHtml = '';
+  //   times.forEach(timeLabel => {
+  //     let cellsHtml = '';
+  //     DAYS.forEach(day => {
+  //       const names = cell[timeLabel][day] || [];
+  //       // const content = names.length
+  //       //   ? '● ' + names.join('<br>● ')
+  //       //   : '';
+  //       cellsHtml += `
+  //         <td style="padding:4px 6px; border:1px solid #ddd; text-align:center; vertical-align:top;">
+  //           ${names}
+  //         </td>
+  //       `;
+  //     });
 
-      rowsHtml += `
-        <tr>
-          <td style="padding:4px 6px; border:1px solid #ddd; white-space:nowrap; background:#f9fafb; text-align:right;">
-            ${timeLabel}
-          </td>
-          ${cellsHtml}
-        </tr>
-      `;
-    });
+  //     rowsHtml += `
+  //       <tr>
+  //         <td style="padding:4px 6px; border:1px solid #ddd; white-space:nowrap; background:#f9fafb; text-align:right;">
+  //           ${timeLabel}
+  //         </td>
+  //         ${cellsHtml}
+  //       </tr>
+  //     `;
+  //   });
 
-    // 4) عنوان مختلف للمكاتب والمعامل فقط
-        const summaryTitle = '🧪 جدول محاضرات / حجز المعمل';
+  //   // 4) عنوان مختلف للمكاتب والمعامل فقط
+  //       const summaryTitle = '🧪 جدول محاضرات / حجز المعمل';
 
-        Ls.push(`
-      <details style="margin-top:8px; max-height:260px; overflow:auto;">
-        <summary style="cursor:pointer; font-weight:bold; ${'color:#0ea5e9;'}">
-          ${summaryTitle}
-        </summary>
+  //       Ls.push(`
+  //     <details style="margin-top:8px; max-height:260px; overflow:auto;">
+  //       <summary style="cursor:pointer; font-weight:bold; ${'color:#0ea5e9;'}">
+  //         ${summaryTitle}
+  //       </summary>
 
-        <div style="margin-top:8px;">
-          <table style="
-            width:100%;
-            min-width:100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-            box-sizing: border-box;
-            direction:rtl;
-            font-size:13px;
-            text-align:center;">
+  //       <div style="margin-top:8px;">
+  //         <table style="
+  //           width:100%;
+  //           min-width:100%;
+  //           border-collapse: collapse;
+  //           table-layout: fixed;
+  //           box-sizing: border-box;
+  //           direction:rtl;
+  //           font-size:13px;
+  //           text-align:center;">
 
-            <thead>
-              <tr style="background:#e5e7eb;">
-                <th style="padding:6px; border:1px solid #ddd; text-align:right;">الوقت</th>
-                ${DAYS.map(d => `
-                  <th style="padding:6px; border:1px solid #ddd;">${d}</th>
-                `).join('')}
-              </tr>
-            </thead>
+  //           <thead>
+  //             <tr style="background:#e5e7eb;">
+  //               <th style="padding:6px; border:1px solid #ddd; text-align:right;">الوقت</th>
+  //               ${DAYS.map(d => `
+  //                 <th style="padding:6px; border:1px solid #ddd;">${d}</th>
+  //               `).join('')}
+  //             </tr>
+  //           </thead>
 
-            <tbody>
-              ${rowsHtml}
-            </tbody>
+  //           <tbody>
+  //             ${rowsHtml}
+  //           </tbody>
 
-          </table>
-        </div>
-      </details>
-    `);
+  //         </table>
+  //       </div>
+  //     </details>
+  //   `);
 
 
-  }
-  // ========== End of table ==========
+  // }
+  // // ========== End of table ==========
 
   return Ls.join('<br/>') || 'عنصر';
 }
